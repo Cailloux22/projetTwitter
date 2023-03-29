@@ -2,12 +2,12 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Tweets from "./components/tweets";
 function App() {
-  <BrowserRouter>
+  return (  <BrowserRouter>
     <Routes>
       <Route path="/" element={<Tweets />} />
     </Routes>
-  </BrowserRouter>;
-  return <div>helloooo</div>;
+  </BrowserRouter>);
+  
 }
 
 export default App;
