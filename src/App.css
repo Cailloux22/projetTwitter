@@ -1,3 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.loader {
+  
+  animation: rotate 1.5s linear infinite;
+}
+
+
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .App {
   text-align: center;
 }
