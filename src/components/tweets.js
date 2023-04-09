@@ -88,8 +88,8 @@ const Tweets = () => {
           </div>
         </div>
       )}
-      <button onClick={handlereload}>
-        <AiOutlineReload size={36} className="text-color" />
+      <button className="m-2" onClick={handlereload}>
+        <AiOutlineReload size={36} className="text-cyan-500 " />
       </button>
       <h1 className="mx-auto w-3/4 py-6 flex justify-between items-center">
         <div>
