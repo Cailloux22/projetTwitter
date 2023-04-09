@@ -4,10 +4,15 @@ import Tweet from "./tweet";
 import { AiFillTwitterCircle } from "react-icons/ai";
 import "../App.css";
 const Tweets = () => {
-  const [tweets, setTweets] = useState([1, 2, 1, 11, 1, 1, 1, 1, 1]);
+  const [tweets, setTweets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentId, setCurrentId] = useState();
   const [initialRender, setInitialRender] = useState(true);
+  const [name, setName] = useState();
+  const [username, setUsername] = useState();
+  const [img, setImg] = useState();
+  // profile_image_url
+
   useEffect(() => {
     fetchID();
   }, []);
@@ -29,8 +34,11 @@ const Tweets = () => {
             fetchID(id + 1);
           }, 500);
         } else {
+          setName(result.apiTwitter.data.name);
+          setUsername(result.apiTwitter.data.username);
           setCurrentId(id);
           setIsLoading(false);
+          setImg(result.apiTwitter.data.profile_image_url)
         }
       });
   };
@@ -52,6 +60,11 @@ const Tweets = () => {
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
+        if (result.apiTwitter.data) {
+          setTweets(result.apiTwitter.data);
+        } else {
+          fetchID();
+        }
       });
   };
 
@@ -67,9 +80,14 @@ const Tweets = () => {
         </div>
       )}
 
-      <h1>les tweets</h1>
-      {tweets.map(() => (
-        <Tweet key={uuid()} />
+      <h1 className="mx-auto w-3/4 py-6 flex justify-between items-center">
+        <div>
+        les tweets de <span className="font-bold">{name} </span> 
+        <span className="text-gray-500">@{username}</span></div>
+        <img className="rounded-full w-16" src={img}></img>
+      </h1>
+      {tweets.map((tweet) => (
+        <Tweet tweet={tweet} key={uuid()} />
       ))}
     </>
   );
