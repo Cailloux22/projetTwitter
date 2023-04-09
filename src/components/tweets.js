@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import uuid from "react-uuid";
 import Tweet from "./tweet";
-import { AiFillTwitterCircle } from "react-icons/ai";
+import { AiFillTwitterCircle, AiOutlineReload } from "react-icons/ai";
 import "../App.css";
 const Tweets = () => {
   const [tweets, setTweets] = useState([]);
@@ -38,7 +38,7 @@ const Tweets = () => {
           setUsername(result.apiTwitter.data.username);
           setCurrentId(id);
           setIsLoading(false);
-          setImg(result.apiTwitter.data.profile_image_url)
+          setImg(result.apiTwitter.data.profile_image_url);
         }
       });
   };
@@ -67,23 +67,35 @@ const Tweets = () => {
         }
       });
   };
+  const handlereload = () => {
+    setTweets([]);
+    setIsLoading(true);
+    fetchID();
+  };
 
   return (
     <>
       {isLoading && (
-        <div className="fixed bg-gray-500 opacity-50 w-screen h-screen z-1111111">
-          <div className="bg-white fixed top-1/2 left-1/2 -translate-x-2/4 p-6 -translate-y-2/4 flex flex-col items-center">
-            <div className="w-full h-full flex items-center justify-center rounded-md">
-              <AiFillTwitterCircle className="loader text-cyan-500" size={48} />
+        <div className="fixed bg-gray-500 opacity-50 w-screen h-screen z-10">
+          <div className="bg-white z-20 fixed top-1/2 left-1/2 -translate-x-2/4 p-6 -translate-y-2/4 flex flex-col items-center">
+            <div className="w-full h-full flex items-center justify-center rounded-md flex-col">
+              <span>Recherche aléatoire d'un utilisateur</span>
+              <AiFillTwitterCircle
+                className="loader  text-cyan-500"
+                size={48}
+              />
             </div>
           </div>
         </div>
       )}
-
+      <button onClick={handlereload}>
+        <AiOutlineReload size={36} className="text-color" />
+      </button>
       <h1 className="mx-auto w-3/4 py-6 flex justify-between items-center">
         <div>
-        les tweets de <span className="font-bold">{name} </span> 
-        <span className="text-gray-500">@{username}</span></div>
+          les tweets de <span className="font-bold">{name} </span>
+          <span className="text-gray-500">@{username}</span>
+        </div>
         <img className="rounded-full w-16" src={img}></img>
       </h1>
       {tweets.map((tweet) => (
